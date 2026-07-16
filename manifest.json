@@ -3,7 +3,8 @@
   "packageVersion": "1.0.0",
   "platform": "windows-amd64",
   "versions": {
-    "fastclaw": "0.35.1",
+    "fastclaw": "0.35.1-sciposter.2",
+    "fastclawBuild": "c6f93858-workspacefix2",
     "python": "3.12.9",
     "node": "22.13.0",
     "pptxgenjs": "3.12.0",
@@ -42,13 +43,18 @@
     },
     {
       "path": "bootstrap/bootstrap.py",
-      "sha256": "B77604E6200628CF7D4CC6010C9BA900E2136A0405E94F9871ABCFEF8C95E850",
-      "size": 25220
+      "sha256": "9B5031F5F1B3929670176A81254F5698070C2F1FB4EF1C39B7A252F8036C1740",
+      "size": 23198
     },
     {
       "path": "bootstrap/common.ps1",
       "sha256": "2D9107D76F56DC33658A0C8068EE83EEA3AB629F05947A08871E4CAC70EFB5AC",
       "size": 10266
+    },
+    {
+      "path": "bootstrap/package_manifest.py",
+      "sha256": "9D3FE66B8058B55EE4E9223930DB3966B040262B208252DAB8572FDEBFD668A0",
+      "size": 9711
     },
     {
       "path": "config/agents.json",
@@ -67,8 +73,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "69FC54FF6901537CB3F2E02E348B1206290A2979D074391CDE8014B6F5C38D20",
-      "size": 1560
+      "sha256": "B507A03E41FD374D80AEE793B9A989369F7C4616F760282E17884E2F69474972",
+      "size": 2906
     },
     {
       "path": "skills/academic-poster.zip",

@@ -7,6 +7,7 @@ runtime/
 build/
 tmp/
 bin/
+dist/
 
 # Python cache and compiled bytecode
 **/__pycache__

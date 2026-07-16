@@ -34,3 +34,40 @@ only when Microsoft Word, LibreOffice, or `antiword` is already installed.
 Skills execute on the host because FastClaw sandboxing is disabled for this
 package. Keep the service bound to loopback and expose it to a frontend only
 through an authenticated middleware.
+
+## Building releases
+
+The Git repository intentionally excludes `bin/`, `runtime/`, and `build/`.
+Deployable ZIP files are assembled in two stages on Windows x64.
+
+First, create a versioned portable base from the locally verified FastClaw,
+Python, and Node directories:
+
+```powershell
+./scripts/New-PortableBase.ps1 -Version 1.0.0
+```
+
+Create a GitHub Release named `base-v1.0.0`, upload the generated portable-base
+ZIP and its `.sha256` file, then copy `dist/portable-base.lock.json` to
+`release/portable-base.lock.json` and commit it.
+
+To test final assembly locally before publishing:
+
+```powershell
+./scripts/Build-Release.ps1 `
+  -Version 1.0.0 `
+  -BaseLockFile dist/portable-base.lock.json `
+  -BaseArchive dist/sciposter-portable-base-windows-amd64-1.0.0.zip
+```
+
+Commit tracked changes before running the final assembly script. It packages
+deployment files from Git `HEAD` and rejects a dirty tracked working tree.
+
+After the base lock is committed, push an application tag such as `v1.0.0`.
+The GitHub Actions release workflow downloads the locked base, verifies its
+SHA-256, builds the final package, runs the local E2E test, and publishes the
+final ZIP and checksum. Tags beginning with `base-v` do not trigger this
+workflow.
+
+The final deployment package does not bundle `sh.exe`; Git for Windows remains
+a deployment prerequisite.

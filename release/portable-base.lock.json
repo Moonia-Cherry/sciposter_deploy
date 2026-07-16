@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "baseVersion": "1.0.0",
+  "platform": "windows-amd64",
+  "repository": "Moonia-Cherry/sciposter_deploy",
+  "releaseTag": "base-v1.0.0",
+  "assetName": "sciposter-portable-base-windows-amd64-1.0.0.zip",
+  "sha256": "93DD0E1B4B7983FFB31ED6A3256DC55716595C034C77C9C979FE9E9760DDE282",
+  "components": {
+    "fastclaw": "0.35.1-sciposter.2",
+    "fastclawBuild": "c6f93858-workspacefix2",
+    "python": "3.12.9",
+    "node": "22.13.0",
+    "pptxgenjs": "3.12.0",
+    "sharp": "0.33.5"
+  }
+}
