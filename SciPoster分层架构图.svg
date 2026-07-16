@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1380" viewBox="0 0 1800 1380" role="img" aria-labelledby="title desc">
+  <title id="title">SciPoster 分层架构图</title>
+  <desc id="desc">基于当前 SciPoster 仓库实现整理的中文分层架构图。</desc>
+  <defs>
+    <style>
+      .bg { fill: #f4f7fb; }
+      .title { font: 700 34px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #10233f; }
+      .subtitle { font: 400 17px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #41556f; }
+      .layer-title { font: 700 24px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #0f2745; }
+      .layer-note { font: 400 15px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #4b5e75; }
+      .box-title { font: 700 18px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #10233f; }
+      .box-text { font: 400 15px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #24384f; }
+      .small { font: 400 14px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #52657d; }
+      .label { font: 600 14px 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; fill: #35506f; }
+      .layer-a { fill: #eaf3ff; stroke: #8fb6e8; stroke-width: 2; }
+      .layer-b { fill: #eef8f2; stroke: #91c8a4; stroke-width: 2; }
+      .layer-c { fill: #fff7e8; stroke: #e0bd73; stroke-width: 2; }
+      .layer-d { fill: #f8efff; stroke: #c5a5ea; stroke-width: 2; }
+      .layer-e { fill: #fff0f0; stroke: #e1a0a0; stroke-width: 2; }
+      .layer-f { fill: #edf1f7; stroke: #a8b6ca; stroke-width: 2; }
+      .box { fill: #ffffff; stroke: #b9c8d8; stroke-width: 1.6; }
+      .box-strong { fill: #ffffff; stroke: #7fa4cf; stroke-width: 2; }
+      .line { stroke: #607d9b; stroke-width: 2.2; fill: none; }
+      .dashed { stroke-dasharray: 8 6; }
+      .legend { fill: #ffffff; stroke: #c8d3df; stroke-width: 1.2; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#607d9b"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1800" height="1380"/>
+  <text class="title" x="60" y="58">SciPoster 分层架构图</text>
+  <text class="subtitle" x="60" y="90">当前形态: 前端轻壳 + Node/Express 后端 + Provider 适配层 + 交付物渲染层</text>
+
+  <rect class="layer-a" x="40" y="120" width="1720" height="150" rx="26" ry="26"/>
+  <text class="layer-title" x="70" y="160">1. 表现层</text>
+  <text class="layer-note" x="70" y="188">负责用户可见界面与静态资源承载, 当前业务复杂度主要仍集中在后端。</text>
+  <rect class="box-strong" x="90" y="205" width="410" height="50" rx="16" ry="16"/>
+  <text class="box-title" x="112" y="236">Web 前端壳层</text>
+  <text class="small" x="248" y="236">app/src/main.ts, style.css, React 19 + Vite</text>
+  <rect class="box" x="560" y="205" width="520" height="50" rx="16" ry="16"/>
+  <text class="box-title" x="582" y="236">静态资源与视觉素材</text>
+  <text class="small" x="804" y="236">app/public, picture, logo.png</text>
+  <rect class="box" x="1140" y="205" width="560" height="50" rx="16" ry="16"/>
+  <text class="box-title" x="1162" y="236">工程交付阅读入口</text>
+  <text class="small" x="1376" y="236">工程交付目录下的文档与图件</text>
+
+  <rect class="layer-b" x="40" y="295" width="1720" height="240" rx="26" ry="26"/>
+  <text class="layer-title" x="70" y="335">2. API 接口层</text>
+  <text class="layer-note" x="70" y="363">由 Express 统一暴露 HTTP 接口, 负责跨域, JSON 解析, 上传解析和路由分发。</text>
+  <rect class="box-strong" x="90" y="385" width="720" height="120" rx="18" ry="18"/>
+  <text class="box-title" x="115" y="417">服务统一入口</text>
+  <text class="box-text" x="115" y="447">backend/src/index.ts</text>
+  <text class="box-text" x="115" y="474">技术栈: Express 5, cors, multer, dotenv</text>
+  <text class="box-text" x="115" y="501">职责: 中间件注册, 健康检查, 业务接口暴露</text>
+  <rect class="box" x="860" y="385" width="380" height="120" rx="18" ry="18"/>
+  <text class="box-title" x="885" y="417">接口组 A</text>
+  <text class="box-text" x="885" y="447">GET /health</text>
+  <text class="box-text" x="885" y="474">POST /api/demo/login</text>
+  <text class="box-text" x="885" y="501">GET /api/credits/:userId</text>
+  <rect class="box" x="1280" y="385" width="420" height="120" rx="18" ry="18"/>
+  <text class="box-title" x="1305" y="417">接口组 B</text>
+  <text class="box-text" x="1305" y="447">POST /api/credits/recharge</text>
+  <text class="box-text" x="1305" y="474">POST /api/payments/orders (含确认/取消)</text>
+  <text class="box-text" x="1305" y="501">POST /api/jobs (支持 multipart)</text>
+
+  <rect class="layer-c" x="40" y="560" width="1720" height="265" rx="26" ry="26"/>
+  <text class="layer-title" x="70" y="600">3. 应用编排层</text>
+  <text class="layer-note" x="70" y="628">负责请求标准化, 任务路由, 计费编排, Provider 调度以及失败回滚。</text>
+  <rect class="box-strong" x="90" y="650" width="510" height="140" rx="18" ry="18"/>
+  <text class="box-title" x="115" y="682">请求解析服务</text>
+  <text class="box-text" x="115" y="712">backend/src/services/requestParser.ts</text>
+  <text class="box-text" x="115" y="739">解析 JSON 与 multipart 请求</text>
+  <text class="box-text" x="115" y="766">把上传文件和手工字段统一整理为 PaperInput</text>
+  <rect class="box-strong" x="645" y="650" width="510" height="140" rx="18" ry="18"/>
+  <text class="box-title" x="670" y="682">任务服务 / 编排中枢</text>
+  <text class="box-text" x="670" y="712">backend/src/services/jobService.ts</text>
+  <text class="box-text" x="670" y="739">按 jobType 选择 stub, fastclaw 或 external provider</text>
+  <text class="box-text" x="670" y="766">串联计费, 生成, 渲染与结果返回</text>
+  <rect class="box-strong" x="1200" y="650" width="500" height="140" rx="18" ry="18"/>
+  <text class="box-title" x="1225" y="682">积分与订单服务</text>
+  <text class="box-text" x="1225" y="712">backend/src/services/creditService.ts</text>
+  <text class="box-text" x="1225" y="739">负责演示用户, 预扣, 确认, 释放, 充值与支付单</text>
+  <text class="box-text" x="1225" y="766">当前以内存 Map 实现, 并预留持久化扩展点</text>
+
+  <rect class="layer-d" x="40" y="850" width="1720" height="250" rx="26" ry="26"/>
+  <text class="layer-title" x="70" y="890">4. 领域能力层</text>
+  <text class="layer-note" x="70" y="918">沉淀后端内部可复用的论文理解与交付物生成能力。</text>
+  <rect class="box-strong" x="90" y="940" width="760" height="125" rx="18" ry="18"/>
+  <text class="box-title" x="115" y="972">文档解析能力</text>
+  <text class="box-text" x="115" y="1002">backend/src/services/documentParser.ts</text>
+  <text class="box-text" x="115" y="1029">支持 PDF, DOC, DOCX, TXT, 提取标题, 摘要, 正文, 亮点与语言。</text>
+  <text class="box-text" x="115" y="1056">依赖: pdf-parse, mammoth, word-extractor, Windows Word COM 回退解析</text>
+  <rect class="box-strong" x="900" y="940" width="800" height="125" rx="18" ry="18"/>
+  <text class="box-title" x="925" y="972">交付物渲染能力</text>
+  <text class="box-text" x="925" y="1002">backend/src/services/artifactRenderer.ts</text>
+  <text class="box-text" x="925" y="1029">为 poster/slides 补充 PPTX, 为文章/小红书任务补充 SVG 封面。</text>
+  <text class="box-text" x="925" y="1056">依赖: PptxGenJS, 文件系统输出, SVG 模板渲染</text>
+
+  <rect class="layer-e" x="40" y="1125" width="1720" height="165" rx="26" ry="26"/>
+  <text class="layer-title" x="70" y="1165">5. 集成适配层</text>
+  <text class="layer-note" x="70" y="1193">屏蔽不同生成引擎差异, 对上统一返回 JobResult, 对下连接本地, FastClaw 和外部 Provider。</text>
+  <rect class="box-strong" x="90" y="1215" width="370" height="50" rx="16" ry="16"/>
+  <text class="box-title" x="112" y="1246">stubProvider</text>
+  <text class="small" x="248" y="1246">本地占位实现与联调用途</text>
+  <rect class="box-strong" x="520" y="1215" width="460" height="50" rx="16" ry="16"/>
+  <text class="box-title" x="542" y="1246">fastclawProvider</text>
+  <text class="small" x="716" y="1246">调用 /v1/chat/completions, 并按 jobType 映射 agent_id</text>
+  <rect class="box-strong" x="1040" y="1215" width="380" height="50" rx="16" ry="16"/>
+  <text class="box-title" x="1062" y="1246">externalProviders</text>
+  <text class="small" x="1212" y="1246">为 Paper2Poster 和 PPTAgent 预留适配接缝</text>
+  <rect class="box" x="1480" y="1215" width="220" height="50" rx="16" ry="16"/>
+  <text class="box-title" x="1502" y="1246">config.ts</text>
+  <text class="small" x="1570" y="1246">环境变量与 Provider 路由策略</text>
+
+  <rect class="layer-f" x="40" y="1315" width="1720" height="45" rx="22" ry="22"/>
+  <text class="layer-title" x="70" y="1345">6. 资源与支撑层</text>
+  <text class="layer-note" x="320" y="1345">fastclaw-agents, uploadable-skills, backend/generated, backend/data, docs, scripts, test-output</text>
+
+  <path class="line" marker-end="url(#arrow)" d="M900 270 L900 384"/>
+  <path class="line" marker-end="url(#arrow)" d="M900 535 L900 648"/>
+  <path class="line" marker-end="url(#arrow)" d="M900 825 L900 938"/>
+  <path class="line" marker-end="url(#arrow)" d="M900 1100 L900 1213"/>
+  <path class="line" marker-end="url(#arrow)" d="M1590 1265 L1590 1315"/>
+
+  <path class="line dashed" marker-end="url(#arrow)" d="M345 790 C345 845, 290 860, 290 940"/>
+  <text class="label" x="182" y="878">上传任务触发论文解析</text>
+
+  <path class="line dashed" marker-end="url(#arrow)" d="M900 790 C900 845, 1110 860, 1110 940"/>
+  <text class="label" x="944" y="878">生成结果进入交付渲染</text>
+
+  <path class="line dashed" marker-end="url(#arrow)" d="M760 790 C760 860, 720 1080, 720 1215"/>
+  <text class="label" x="626" y="1112">按 Provider 路由</text>
+
+  <path class="line dashed" marker-end="url(#arrow)" d="M1310 790 C1310 860, 1310 1080, 1310 1215"/>
+  <text class="label" x="1194" y="1112">Billing feedback</text>
+
+  <rect class="legend" x="1430" y="45" width="320" height="52" rx="12" ry="12"/>
+  <text class="box-title" x="1452" y="77">图例</text>
+  <text class="small" x="1510" y="77">实线 = 主调用链 | 虚线 = 协同关系</text>
+</svg>

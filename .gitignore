@@ -1,0 +1,13 @@
+config/deploy.local.json
+data/
+state/deploy-state.json
+logs/
+*.tmp
+runtime/
+build/
+tmp/
+bin/
+
+# Python cache and compiled bytecode
+**/__pycache__
+*.py[cod]

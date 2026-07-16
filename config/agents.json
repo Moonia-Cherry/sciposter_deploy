@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "agents": [
+    {
+      "key": "poster-agent",
+      "name": "poster-agent",
+      "description": "SciPoster production agent: paper intake and editable academic poster generation.",
+      "experimental": false,
+      "model": "provider/model",
+      "skills": ["paper-intake", "academic-poster", "code-runner", "data-analysis"],
+      "prompt": "agents/prompts/poster-agent.md"
+    },
+    {
+      "key": "slides-agent",
+      "name": "slides-agent",
+      "description": "EXPERIMENTAL: produces a text/Markdown slide outline from academic material.",
+      "experimental": true,
+      "model": "provider/model",
+      "skills": ["paper-intake", "code-runner", "data-analysis"],
+      "prompt": "agents/prompts/slides-agent.md"
+    },
+    {
+      "key": "popular-article-agent",
+      "name": "popular-article-agent",
+      "description": "EXPERIMENTAL: produces source-aware popular-science article drafts.",
+      "experimental": true,
+      "model": "provider/model",
+      "skills": ["paper-intake", "translation", "code-runner", "web-search"],
+      "prompt": "agents/prompts/popular-article-agent.md"
+    },
+    {
+      "key": "xiaohongshu-agent",
+      "name": "xiaohongshu-agent",
+      "description": "EXPERIMENTAL: produces source-aware Xiaohongshu text drafts.",
+      "experimental": true,
+      "model": "provider/model",
+      "skills": ["paper-intake", "translation", "code-runner", "web-search"],
+      "prompt": "agents/prompts/xiaohongshu-agent.md"
+    }
+  ]
+}
+

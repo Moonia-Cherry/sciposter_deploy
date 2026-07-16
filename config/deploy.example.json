@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "fastclaw": {
+    "host": "127.0.0.1",
+    "port": 18953,
+    "apiKeyName": "sciposter-middleware"
+  },
+  "administrator": {
+    "username": "sciposter-admin",
+    "email": "admin@sciposter.local",
+    "password": "REPLACE_ME_WITH_A_STRONG_PASSWORD"
+  },
+  "provider": {
+    "name": "openai",
+    "apiBase": "https://api.openai.com/v1",
+    "apiKey": "REPLACE_ME_WITH_PROVIDER_API_KEY",
+    "apiType": "openai-chat",
+    "authType": "bearer-token",
+    "model": {
+      "id": "REPLACE_ME_WITH_MODEL_ID",
+      "name": "SciPoster model",
+      "reasoning": false,
+      "input": ["text", "image"],
+      "contextWindow": 200000,
+      "maxTokens": 8192,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      }
+    }
+  },
+  "fastclawClientApiKey": "",
+  "verification": {
+    "modelSmoke": true,
+    "posterSmokeInput": "",
+    "requestTimeoutSeconds": 180
+  }
+}
+
