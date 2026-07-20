@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "packageVersion": "1.0.0",
+  "packageVersion": "1.1.0",
   "platform": "windows-amd64",
   "versions": {
     "fastclaw": "0.35.1-sciposter.2",
@@ -12,29 +12,29 @@
   },
   "files": [
     {
-      "path": "agent-skill.md",
-      "sha256": "84C42F940634EB4E559D7E008A68D18B87BBCFE5C36CC0EC86C8291754EDD529",
-      "size": 296
-    },
-    {
       "path": "agents/prompts/popular-article-agent.md",
-      "sha256": "18326611B4E5E8597FCAF5E6003639DE3902C982930974757532F1DFCB14B91D",
-      "size": 445
+      "sha256": "ED81ED6684DC107550CB4389B8E2F52A3513DA7157423510687702536C8B1B3C",
+      "size": 729
     },
     {
       "path": "agents/prompts/poster-agent.md",
-      "sha256": "92D5837DFEFD2575EF1277E5576422D19FF353C93ED4A35BEA3A62403A7DEB87",
-      "size": 1402
+      "sha256": "511AFEE061980C187944F105DCE091A2EF3885EDCB21C5955D7338275CDC703E",
+      "size": 1101
+    },
+    {
+      "path": "agents/prompts/poster-fastclaw-upload-agent.md",
+      "sha256": "DE4056A3984763C157ADBF5E7D005A4456296342D19264275D54B4D3A5C8EF2C",
+      "size": 1035
     },
     {
       "path": "agents/prompts/slides-agent.md",
-      "sha256": "C56F9CD027CF23E14CFCC4367E709FF5539E1CAADDE98D67E4749F86B721F88C",
-      "size": 419
+      "sha256": "67B7B0D637E939578DE4256842E5CD0D31116B7E1350C7E0DB452ACBA7D300A0",
+      "size": 498
     },
     {
       "path": "agents/prompts/xiaohongshu-agent.md",
-      "sha256": "858A2755A255E934568819DA8EABB9770420394EDC1737F99EE13974DC14A494",
-      "size": 412
+      "sha256": "9D51BD4230786E59DD8DF95231B4B0A905BD7AC6BA2C9E1D826EF689E7D4C8A2",
+      "size": 463
     },
     {
       "path": "bin/fastclaw/fastclaw.exe",
@@ -43,8 +43,8 @@
     },
     {
       "path": "bootstrap/bootstrap.py",
-      "sha256": "9B5031F5F1B3929670176A81254F5698070C2F1FB4EF1C39B7A252F8036C1740",
-      "size": 23198
+      "sha256": "E9BF05B2143BA6D3FD6C1BBE8F9BA3532C29B2C79FF1369DF2BB6280EC2EA8F6",
+      "size": 24276
     },
     {
       "path": "bootstrap/common.ps1",
@@ -58,13 +58,13 @@
     },
     {
       "path": "config/agents.json",
-      "sha256": "F6D5245F516AF700D6FC62A2EBBB4A522CC708272B2D2FE07210EDF8A7C6BEA7",
-      "size": 1506
+      "sha256": "F83D439CD7CE78608E7CFB4B1F52910DFAAB81657D67B9C9034B0BF9EB4ADCC0",
+      "size": 1868
     },
     {
       "path": "config/deploy.example.json",
-      "sha256": "AC3B7D9133577FF5E5E19D15F6B846E7190BBAC160E8B28186BDA714119FF234",
-      "size": 945
+      "sha256": "0E31A8F89C38C1CA85319088762CF9C23BE1E44453FDB556AFDAC57833F8B6C2",
+      "size": 944
     },
     {
       "path": "deploy.ps1",
@@ -72,9 +72,19 @@
       "size": 3303
     },
     {
+      "path": "docs/deployment.md",
+      "sha256": "4918D39922D80B16CCAC88209E3FF92B3A56A2C5F260A6262DA7EBAC64E1C0FF",
+      "size": 5901
+    },
+    {
       "path": "README.md",
-      "sha256": "B507A03E41FD374D80AEE793B9A989369F7C4616F760282E17884E2F69474972",
-      "size": 2906
+      "sha256": "F1E1493BB20069BCEF8C7E235DDA3D0577EE1EF21CA24E304BB74D1ED46155D0",
+      "size": 1564
+    },
+    {
+      "path": "skills/academic-poster-fastclaw-upload.zip",
+      "sha256": "7E170ABEB89AEEA13E2782E7DCBD03CA9D10718CEF5ACF633A69179F8B1893B2",
+      "size": 30818
     },
     {
       "path": "skills/academic-poster.zip",
@@ -97,6 +107,16 @@
       "size": 5910
     },
     {
+      "path": "skills/popular-article-fastclaw-upload.zip",
+      "sha256": "D4508D1207DB96C35ED8A97289242FCF87D0B8088E5387F2A161E8E34EC2572F",
+      "size": 28499
+    },
+    {
+      "path": "skills/slides-fastclaw-upload.zip",
+      "sha256": "DEA1BE4B8DFA9F2026E7AE92A4EDA3861C87E31D36EA07C8C97329A79F41FDC2",
+      "size": 29016
+    },
+    {
       "path": "skills/translation.zip",
       "sha256": "DD6BDD07EEE84C91C55BD7D7D262B85629FF8571FFE3CED876EEC8B4BE83DA66",
       "size": 839
@@ -105,6 +125,11 @@
       "path": "skills/web-search.zip",
       "sha256": "768854B5F60CA7C1112122A95C4B10D8C96F37BD03879493E0C92F4A45FEC903",
       "size": 758
+    },
+    {
+      "path": "skills/xhs-fastclaw-upload.zip",
+      "sha256": "1F47184CA1BB8194972EADB96D20431B31D366D512872E089A5DAA02C8B9EA0A",
+      "size": 25813
     },
     {
       "path": "start.ps1",
@@ -123,13 +148,28 @@
     },
     {
       "path": "tests/e2e-local.ps1",
-      "sha256": "DE7FC2496588EA365D2352070EF992D318B31CA5C2409BAD85C2CA5CE90DD178",
-      "size": 3890
+      "sha256": "581D78D6F9ED0623355771578AA8278C3E2606CEFBD3D16FA78B5ED3F3274F9D",
+      "size": 4357
     },
     {
       "path": "tests/mock_provider.py",
       "sha256": "5D9C95DDD0AF9227FA3BC3E4A2219FBB7DC00BE6A2C67552C7B3371051012D79",
       "size": 1665
+    },
+    {
+      "path": "tests/repository_checks.py",
+      "sha256": "8B13AE8C622FACAA08E26F8131977F2C733226ACF2886FA25D16A551EF9A6824",
+      "size": 2650
+    },
+    {
+      "path": "tests/runtime_error_checks.py",
+      "sha256": "435196E3A82D8ADBFA807235CC9FE6C540D52446C81362A55BB2FE3793C92181",
+      "size": 2086
+    },
+    {
+      "path": "tests/skill_smoke.py",
+      "sha256": "B2028ACA8A0BC72A40A0452CE8A2C5386273D545CA7645CBFF31CC07ABA449BB",
+      "size": 7560
     },
     {
       "path": "verify.ps1",
@@ -140,12 +180,12 @@
   "trees": [
     {
       "path": "runtime/python",
-      "sha256": "8DB3B67D1E317493D0310E1C9B7FED4C58C36B244AFE1BCC0A45E4C4E42F6610",
-      "fileCount": 8918
+      "sha256": "783FFDE817C939244C9392690153B7F2998E363B2B28A614560E783556BDF453",
+      "fileCount": 9863
     },
     {
       "path": "runtime/node",
-      "sha256": "E098A2D7ADC3914A8FDFA2FD0817940A0613E33B82B6459E44D6F7DD7044E328",
+      "sha256": "ABCC1AF69DBD104911A449E846FCE204442C046808DE7E9F63ADA1A41549E21E",
       "fileCount": 474
     }
   ]

@@ -1,73 +1,24 @@
-# SciPoster FastClaw Windows deployment
+# SciPoster Deploy
 
-This directory is a self-contained Windows x64 deployment package for the
-SciPoster FastClaw backend. It does not install a Windows service and it does
-not modify the machine-wide `PATH`.
+SciPoster Deploy 是面向 Windows x64 的自包含 FastClaw 部署包。它携带固定版本的 FastClaw、Python 3.12、Node.js、PptxGenJS、sharp 与四个论文上传 skill，用于部署海报、幻灯片、公众号文章和小红书内容生成能力。
 
-FastClaw v0.35.1 invokes its host command tool through `sh.exe`. The package
-uses `runtime/shell` when bundled; otherwise Git for Windows must be installed.
-The deployment scripts discover Git Bash automatically and modify only the
-FastClaw child-process `PATH`.
+## 快速开始
 
-## First deployment
+1. 解压发布包到普通本地目录。
+2. 以 PowerShell 运行 `deploy.ps1`。首次运行会生成 `config/deploy.local.json` 并提示填写管理员、模型供应商与验证配置。
+3. 填写配置后再次运行 `deploy.ps1`，完成 FastClaw 启动、5 个 agent 对账、skill 安装、API Key 创建和验证。
+4. 日常使用 `start.ps1`、`stop.ps1`、`status.ps1` 和 `verify.ps1`。
 
-1. Copy `config/deploy.example.json` to `config/deploy.local.json`.
-2. Replace every `REPLACE_ME` value in the local file.
-3. Open PowerShell in this directory and run `./deploy.ps1`.
+完整步骤、agent 映射、前后端接入、升级及故障排查见 [部署文档](docs/deployment.md)。
 
-The deployment binds FastClaw to `127.0.0.1:18953`, creates four agents,
-installs their private skills, writes their role prompts, and creates a scoped
-API key for the future middleware. The generated key is written only to
-`config/deploy.local.json`.
+## 安全边界
 
-Run `./deploy.ps1 -Reconcile` after changing `config/agents.json`, prompts, or
-skill ZIP files. Daily process control uses `start.ps1`, `stop.ps1`, and
-`status.ps1`; those scripts never reconcile configuration.
+- FastClaw 仅监听 `127.0.0.1:18954`，不得直接暴露到公网。
+- `FASTCLAW_SANDBOX_ENABLED=false`：skill 延续原部署架构，在 FastClaw 主机 workspace 中运行，不使用 Docker sandbox。
+- 浏览器只访问业务 backend/middleware；middleware 使用受限 API Key 调用四个生产 agent。
+- 演示 agent `poster-fastclaw-upload-agent` 不包含在 middleware API Key 权限范围内。
+- `config/deploy.local.json` 和 `state/`、`data/`、`logs/` 不进入版本控制或发布包。
 
-## Supported input formats
+## 开发与发布
 
-PDF, DOCX, TXT, and Markdown are supported. Legacy `.doc` parsing is available
-only when Microsoft Word, LibreOffice, or `antiword` is already installed.
-
-## Security boundary
-
-Skills execute on the host because FastClaw sandboxing is disabled for this
-package. Keep the service bound to loopback and expose it to a frontend only
-through an authenticated middleware.
-
-## Building releases
-
-The Git repository intentionally excludes `bin/`, `runtime/`, and `build/`.
-Deployable ZIP files are assembled in two stages on Windows x64.
-
-First, create a versioned portable base from the locally verified FastClaw,
-Python, and Node directories:
-
-```powershell
-./scripts/New-PortableBase.ps1 -Version 1.0.0
-```
-
-Create a GitHub Release named `base-v1.0.0`, upload the generated portable-base
-ZIP and its `.sha256` file, then copy `dist/portable-base.lock.json` to
-`release/portable-base.lock.json` and commit it.
-
-To test final assembly locally before publishing:
-
-```powershell
-./scripts/Build-Release.ps1 `
-  -Version 1.0.0 `
-  -BaseLockFile dist/portable-base.lock.json `
-  -BaseArchive dist/sciposter-portable-base-windows-amd64-1.0.0.zip
-```
-
-Commit tracked changes before running the final assembly script. It packages
-deployment files from Git `HEAD` and rejects a dirty tracked working tree.
-
-After the base lock is committed, push an application tag such as `v1.0.0`.
-The GitHub Actions release workflow downloads the locked base, verifies its
-SHA-256, builds the final package, runs the local E2E test, and publishes the
-final ZIP and checksum. Tags beginning with `base-v` do not trigger this
-workflow.
-
-The final deployment package does not bundle `sh.exe`; Git for Windows remains
-a deployment prerequisite.
+Skill 源码位于 `skill-src/`，部署 ZIP 位于 `skills/`。运行 `scripts\Build-Skills.ps1 -CheckReproducible` 可重建 ZIP 并校验可复现性；`skill-src/` 不进入最终部署包。

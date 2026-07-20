@@ -19,14 +19,10 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from package_manifest import (
-    ManifestError,
-    sha256_file,
-    validate_manifest as validate_package_manifest,
-)
+from package_manifest import ManifestError, validate_manifest as validate_package_manifest
 
 
-DEPLOY_VERSION = "1.0.0"
+DEPLOY_VERSION = "1.1.0"
 
 
 class DeployError(RuntimeError):
@@ -35,6 +31,14 @@ class DeployError(RuntimeError):
 
 def log(message: str) -> None:
     print(f"[sciposter] {message}", flush=True)
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest().upper()
 
 
 def sha256_text(text: str) -> str:
@@ -92,8 +96,8 @@ def validate_configuration(config: dict[str, Any], agents_cfg: dict[str, Any]) -
     if not isinstance(port, int) or not (1 <= port <= 65535):
         raise DeployError("fastclaw.port must be a valid integer port")
     agents = agents_cfg.get("agents")
-    if agents_cfg.get("schemaVersion") != 1 or not isinstance(agents, list) or len(agents) != 4:
-        raise DeployError("config/agents.json must contain exactly four schemaVersion 1 agents")
+    if agents_cfg.get("schemaVersion") != 1 or not isinstance(agents, list) or not agents:
+        raise DeployError("config/agents.json must contain a non-empty schemaVersion 1 agents list")
     keys = [a.get("key") for a in agents]
     names = [a.get("name") for a in agents]
     if len(set(keys)) != len(keys) or len(set(names)) != len(names):
@@ -104,6 +108,8 @@ def validate_configuration(config: dict[str, Any], agents_cfg: dict[str, Any]) -
                 raise DeployError(f"agent {agent!r} has invalid {field}")
         if not isinstance(agent.get("skills"), list) or not agent["skills"]:
             raise DeployError(f"agent {agent['key']} must declare at least one skill")
+        if "middlewareAccess" in agent and not isinstance(agent["middlewareAccess"], bool):
+            raise DeployError(f"agent {agent['key']} middlewareAccess must be a boolean")
 
 
 def validate_manifest(root: Path) -> None:
@@ -113,11 +119,23 @@ def validate_manifest(root: Path) -> None:
         raise DeployError(str(exc)) from exc
 
 
+def validate_windows_fonts() -> None:
+    if os.name != "nt":
+        return
+    font_root = Path(os.environ.get("WINDIR", r"C:\Windows")) / "Fonts"
+    candidates = ("msyh.ttc", "msyhbd.ttc", "simhei.ttf", "simsun.ttc")
+    if not any((font_root / name).is_file() for name in candidates):
+        raise DeployError(
+            "Windows Chinese font is missing. Install Microsoft YaHei or SimSun/SimHei before deploying SciPoster."
+        )
+
+
 def validate_package(root: Path, config_path: Path, agents_path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
     config = load_json(config_path)
     agents_cfg = load_json(agents_path)
     validate_configuration(config, agents_cfg)
     validate_manifest(root)
+    validate_windows_fonts()
     for agent in agents_cfg["agents"]:
         prompt_path = root / agent["prompt"]
         if not prompt_path.is_file():
@@ -412,7 +430,8 @@ def reconcile(root: Path, config_path: Path, agents_path: Path, state_path: Path
     prior_state = load_prior_state(state_path)
     agents = reconcile_agents(client, root, config, agents_cfg)
     reconcile_skills(client, root, agents_cfg, agents, prior_state)
-    ordered_ids = [agents[a["key"]]["id"] for a in agents_cfg["agents"]]
+    middleware_agents = [a for a in agents_cfg["agents"] if a.get("middlewareAccess", True)]
+    ordered_ids = [agents[a["key"]]["id"] for a in middleware_agents]
     api_key_id = reconcile_api_key(client, config, config_path, ordered_ids)
     state = {
         "schemaVersion": 1,
@@ -420,6 +439,7 @@ def reconcile(root: Path, config_path: Path, agents_path: Path, state_path: Path
         "reconciledAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "provider": {"id": provider_id, "name": config["provider"]["name"]},
         "apiKey": {"id": api_key_id, "name": config["fastclaw"].get("apiKeyName", "sciposter-middleware")},
+        "middlewareAgentKeys": [a["key"] for a in middleware_agents],
         "managedSkills": sorted({s for a in agents_cfg["agents"] for s in a["skills"]}),
         "agents": agents,
     }
@@ -469,7 +489,8 @@ def verify(root: Path, config_path: Path, agents_path: Path, state_path: Path, r
         if len(matches) != 1:
             raise DeployError(f"expected exactly one agent named {desired['name']!r}, found {len(matches)}")
         agent_id = matches[0]["id"]
-        expected_ids.add(agent_id)
+        if desired.get("middlewareAccess", True):
+            expected_ids.add(agent_id)
         prompt = (root / desired["prompt"]).read_text(encoding="utf-8-sig")
         if get_prompt_content(client, agent_id) != prompt:
             raise DeployError(f"AGENTS.md mismatch for {desired['name']}")
@@ -481,7 +502,7 @@ def verify(root: Path, config_path: Path, agents_path: Path, state_path: Path, r
             )
         log(f"verified agent, prompt, and skills: {desired['name']}")
     if not validate_client_key(config, expected_ids):
-        raise DeployError("middleware API key is missing, invalid, or not scoped to exactly four agents")
+        raise DeployError("middleware API key is missing, invalid, or not scoped to the managed agents")
     log("verified middleware API key scope")
 
     if run_smoke and config.get("verification", {}).get("modelSmoke", True):

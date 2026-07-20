@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "fastclaw": {
     "host": "127.0.0.1",
-    "port": 18953,
+    "port": 18954,
     "apiKeyName": "sciposter-middleware"
   },
   "administrator": {
@@ -38,4 +38,3 @@
     "requestTimeoutSeconds": 180
   }
 }
-

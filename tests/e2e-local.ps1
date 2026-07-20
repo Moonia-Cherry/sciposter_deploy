@@ -64,6 +64,12 @@ try {
     }
     & $python (Join-Path $root 'bootstrap\bootstrap.py') verify --root $root --config $configPath --agents (Join-Path $root 'config\agents.json') --state $statePath
     if ($LASTEXITCODE -ne 0) { throw 'E2E verification failed.' }
+    $state = Get-Content -LiteralPath $statePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if (@($state.agents.PSObject.Properties).Count -ne 5) { throw 'E2E expected exactly five managed agents.' }
+    $middlewareKeys = @($state.middlewareAgentKeys)
+    if ($middlewareKeys.Count -ne 4 -or $middlewareKeys -contains 'poster-fastclaw-upload-agent') {
+        throw 'E2E middleware scope must contain exactly four production agents and exclude the demo agent.'
+    }
     Write-Host '[sciposter] E2E reconciliation, idempotency, prompt, skill, and ACL checks passed.'
 }
 finally {

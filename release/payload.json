@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "paths": [
     "README.md",
-    "agent-skill.md",
     "agents",
     "bootstrap",
     "config/agents.json",
     "config/deploy.example.json",
     "deploy.ps1",
+    "docs/deployment.md",
     "skills",
     "start.ps1",
     "status.ps1",
