@@ -1,4 +1,4 @@
-# SciPoster Deploy 1.1.0 部署指引
+# SciPoster Deploy 1.1.1 部署指引
 
 ## 1. 架构与前提
 
