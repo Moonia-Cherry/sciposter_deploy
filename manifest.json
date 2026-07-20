@@ -3,8 +3,7 @@
   "packageVersion": "1.0.0",
   "platform": "windows-amd64",
   "versions": {
-    "fastclaw": "0.35.1-sciposter.2",
-    "fastclawBuild": "c6f93858-workspacefix2",
+    "fastclaw": "0.35.1",
     "python": "3.12.9",
     "node": "22.13.0",
     "pptxgenjs": "3.12.0",
@@ -12,39 +11,44 @@
   },
   "files": [
     {
-      "path": "agent-skill.md",
-      "sha256": "84C42F940634EB4E559D7E008A68D18B87BBCFE5C36CC0EC86C8291754EDD529",
-      "size": 296
+      "path": ".gitignore",
+      "sha256": "C5555C11DB7165E4ECA0AB11DB7D5AB0257FD04D17B3868923E0D35805138D89",
+      "size": 156
     },
     {
       "path": "agents/prompts/popular-article-agent.md",
-      "sha256": "18326611B4E5E8597FCAF5E6003639DE3902C982930974757532F1DFCB14B91D",
-      "size": 445
+      "sha256": "ED81ED6684DC107550CB4389B8E2F52A3513DA7157423510687702536C8B1B3C",
+      "size": 729
     },
     {
       "path": "agents/prompts/poster-agent.md",
-      "sha256": "92D5837DFEFD2575EF1277E5576422D19FF353C93ED4A35BEA3A62403A7DEB87",
-      "size": 1402
+      "sha256": "511AFEE061980C187944F105DCE091A2EF3885EDCB21C5955D7338275CDC703E",
+      "size": 1101
+    },
+    {
+      "path": "agents/prompts/poster-fastclaw-upload-agent.md",
+      "sha256": "DE4056A3984763C157ADBF5E7D005A4456296342D19264275D54B4D3A5C8EF2C",
+      "size": 1035
     },
     {
       "path": "agents/prompts/slides-agent.md",
-      "sha256": "C56F9CD027CF23E14CFCC4367E709FF5539E1CAADDE98D67E4749F86B721F88C",
-      "size": 419
+      "sha256": "67B7B0D637E939578DE4256842E5CD0D31116B7E1350C7E0DB452ACBA7D300A0",
+      "size": 498
     },
     {
       "path": "agents/prompts/xiaohongshu-agent.md",
-      "sha256": "858A2755A255E934568819DA8EABB9770420394EDC1737F99EE13974DC14A494",
-      "size": 412
+      "sha256": "9D51BD4230786E59DD8DF95231B4B0A905BD7AC6BA2C9E1D826EF689E7D4C8A2",
+      "size": 463
     },
     {
-      "path": "bin/fastclaw/fastclaw.exe",
-      "sha256": "14FD535C42B7613A1C0E348578641F4D61349120621F5BF4083A138957E49565",
-      "size": 45203968
+      "path": "agent-skill.md",
+      "sha256": "0FE2A7F3677582990014113FB01EDD5C1694E785A7531E1332380458FF0DA60D",
+      "size": 279
     },
     {
       "path": "bootstrap/bootstrap.py",
-      "sha256": "9B5031F5F1B3929670176A81254F5698070C2F1FB4EF1C39B7A252F8036C1740",
-      "size": 23198
+      "sha256": "955DB3049A9B7B00AEAC8590BE88685003E4E1AF8C0A12D26642FC3B14B402FC",
+      "size": 25217
     },
     {
       "path": "bootstrap/common.ps1",
@@ -52,19 +56,14 @@
       "size": 10266
     },
     {
-      "path": "bootstrap/package_manifest.py",
-      "sha256": "9D3FE66B8058B55EE4E9223930DB3966B040262B208252DAB8572FDEBFD668A0",
-      "size": 9711
-    },
-    {
       "path": "config/agents.json",
-      "sha256": "F6D5245F516AF700D6FC62A2EBBB4A522CC708272B2D2FE07210EDF8A7C6BEA7",
-      "size": 1506
+      "sha256": "EF1AD31AE78BFB552E9A80F0466C9F3A97F70ACB31C55009753D1C30657BF361",
+      "size": 1836
     },
     {
       "path": "config/deploy.example.json",
-      "sha256": "AC3B7D9133577FF5E5E19D15F6B846E7190BBAC160E8B28186BDA714119FF234",
-      "size": 945
+      "sha256": "A7C89458FE4BED18908248DF663DBE7B3ED7AB8EDC33153D5CFDB63A408410BE",
+      "size": 1316
     },
     {
       "path": "deploy.ps1",
@@ -72,14 +71,49 @@
       "size": 3303
     },
     {
+      "path": "docs/backend-deploy.md",
+      "sha256": "9DEA97FC3341D464200F81247790537BD9AE197B88AC3690EC2F941F41D27CF3",
+      "size": 1004
+    },
+    {
+      "path": "docs/deploy-checklist.md",
+      "sha256": "D1767957991835F084A7EDD20BD60DC2EB6787F817F12EF033ACEFE182001AC0",
+      "size": 1495
+    },
+    {
+      "path": "docs/fastclaw-agent-skill-mapping.md",
+      "sha256": "824DCD24C682F1F100AAC3302B79BEF413E24CAF5C9323F1BAE51A5B9613C633",
+      "size": 848
+    },
+    {
+      "path": "docs/frontend-deploy.md",
+      "sha256": "579A4F9A464789581D4A5AB7C167EB35B7C004F89E98FAD26A4400620F67490A",
+      "size": 675
+    },
+    {
+      "path": "docs/pr-handoff.md",
+      "sha256": "BA1BD02FF4A1E8E9C077216F69714EFFE335759EDE01561FCCC2290B90D194B0",
+      "size": 990
+    },
+    {
       "path": "README.md",
-      "sha256": "B507A03E41FD374D80AEE793B9A989369F7C4616F760282E17884E2F69474972",
-      "size": 2906
+      "sha256": "E273D79FE77C55873368470C8D9EE413078F75CB1D4653A1C62A4B91467B5AD7",
+      "size": 7359
+    },
+    {
+      "path": "SciPoster分层架构图.svg",
+      "sha256": "D6E0A21CC127410E21D89AA89D101CAAC4079F8538F7BEEEDF572D0BE69FE531",
+      "size": 10526
     },
     {
       "path": "skills/academic-poster.zip",
       "sha256": "1A6C9D833CEAC539918545C205C5C80BDDEF8C6262FBB46ACE823FE82F2AB2DA",
       "size": 22367
+    },
+    {
+      "path": "skills/academic-poster-fastclaw-upload.zip",
+      "sha256": "ABB671D41459D02F7D8613B84AC95153A08705E31C14537DCF50D9A8B8A96D7F",
+      "size": 32102
     },
     {
       "path": "skills/code-runner.zip",
@@ -97,6 +131,16 @@
       "size": 5910
     },
     {
+      "path": "skills/popular-article-fastclaw-upload.zip",
+      "sha256": "CC034EF6FF1110C99D1DDD174D142012497D4C84418039F62D4E53F5DEDF4CB3",
+      "size": 47064
+    },
+    {
+      "path": "skills/slides-fastclaw-upload.zip",
+      "sha256": "A22EBDC92C19B288D1015C64F840071A3B5F374ABB342FF35EA97ACA8BC94A2C",
+      "size": 32190384
+    },
+    {
       "path": "skills/translation.zip",
       "sha256": "DD6BDD07EEE84C91C55BD7D7D262B85629FF8571FFE3CED876EEC8B4BE83DA66",
       "size": 839
@@ -105,6 +149,11 @@
       "path": "skills/web-search.zip",
       "sha256": "768854B5F60CA7C1112122A95C4B10D8C96F37BD03879493E0C92F4A45FEC903",
       "size": 758
+    },
+    {
+      "path": "skills/xhs-fastclaw-upload.zip",
+      "sha256": "4641188050F4BCEF29993F6D9C4EC5B59EDA1D29FBA69C27636ED2C8A6EB8703",
+      "size": 30061005
     },
     {
       "path": "start.ps1",
@@ -137,16 +186,5 @@
       "size": 720
     }
   ],
-  "trees": [
-    {
-      "path": "runtime/python",
-      "sha256": "8DB3B67D1E317493D0310E1C9B7FED4C58C36B244AFE1BCC0A45E4C4E42F6610",
-      "fileCount": 8918
-    },
-    {
-      "path": "runtime/node",
-      "sha256": "E098A2D7ADC3914A8FDFA2FD0817940A0613E33B82B6459E44D6F7DD7044E328",
-      "fileCount": 474
-    }
-  ]
+  "trees": []
 }

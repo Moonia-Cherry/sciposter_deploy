@@ -4,39 +4,47 @@
     {
       "key": "poster-agent",
       "name": "poster-agent",
-      "description": "SciPoster production agent: paper intake and editable academic poster generation.",
+      "description": "SciPoster production agent: upload-driven academic poster generation for the integrated backend.",
       "experimental": false,
       "model": "provider/model",
-      "skills": ["paper-intake", "academic-poster", "code-runner", "data-analysis"],
+      "skills": ["academic-poster-fastclaw-upload"],
       "prompt": "agents/prompts/poster-agent.md"
+    },
+    {
+      "key": "poster-fastclaw-upload-agent",
+      "name": "poster-fastclaw-upload-agent",
+      "description": "Standalone academic poster demo agent that runs only the upload-oriented poster pipeline.",
+      "experimental": false,
+      "model": "provider/model",
+      "skills": ["academic-poster-fastclaw-upload"],
+      "prompt": "agents/prompts/poster-fastclaw-upload-agent.md"
     },
     {
       "key": "slides-agent",
       "name": "slides-agent",
-      "description": "EXPERIMENTAL: produces a text/Markdown slide outline from academic material.",
+      "description": "SciPoster slide generation agent with the upload-oriented PPT pipeline.",
       "experimental": true,
       "model": "provider/model",
-      "skills": ["paper-intake", "code-runner", "data-analysis"],
+      "skills": ["slides-fastclaw-upload"],
       "prompt": "agents/prompts/slides-agent.md"
     },
     {
       "key": "popular-article-agent",
       "name": "popular-article-agent",
-      "description": "EXPERIMENTAL: produces source-aware popular-science article drafts.",
+      "description": "SciPoster public-account article agent with the upload-oriented article export pipeline.",
       "experimental": true,
       "model": "provider/model",
-      "skills": ["paper-intake", "translation", "code-runner", "web-search"],
+      "skills": ["popular-article-fastclaw-upload"],
       "prompt": "agents/prompts/popular-article-agent.md"
     },
     {
       "key": "xiaohongshu-agent",
       "name": "xiaohongshu-agent",
-      "description": "EXPERIMENTAL: produces source-aware Xiaohongshu text drafts.",
+      "description": "SciPoster Xiaohongshu agent with the upload-oriented local packaging pipeline.",
       "experimental": true,
       "model": "provider/model",
-      "skills": ["paper-intake", "translation", "code-runner", "web-search"],
+      "skills": ["xhs-fastclaw-upload"],
       "prompt": "agents/prompts/xiaohongshu-agent.md"
     }
   ]
 }
-

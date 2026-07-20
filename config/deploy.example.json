@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "fastclaw": {
     "host": "127.0.0.1",
-    "port": 18953,
+    "port": 18954,
     "apiKeyName": "sciposter-middleware"
   },
   "administrator": {
@@ -32,10 +32,17 @@
     }
   },
   "fastclawClientApiKey": "",
+  "paths": {
+    "projectRoot": "D:/SciPoster",
+    "fastclawRoot": "D:/State_Key_Lab_Media_Convergence_Communication/poster/fastclaw-dev/fastclaw-dev",
+    "fastclawHome": "D:/SciPoster/fastclaw-home-fixed",
+    "fastclawWorkspaceRoot": "D:/SciPoster/fastclaw-home-fixed/workspaces",
+    "backendRoot": "D:/SciPoster/backend",
+    "frontendRoot": "D:/SciPoster/app"
+  },
   "verification": {
     "modelSmoke": true,
     "posterSmokeInput": "",
     "requestTimeoutSeconds": 180
   }
 }
-

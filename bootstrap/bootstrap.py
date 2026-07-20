@@ -19,12 +19,6 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from package_manifest import (
-    ManifestError,
-    sha256_file,
-    validate_manifest as validate_package_manifest,
-)
-
 
 DEPLOY_VERSION = "1.0.0"
 
@@ -37,8 +31,34 @@ def log(message: str) -> None:
     print(f"[sciposter] {message}", flush=True)
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest().upper()
+
+
 def sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest().upper()
+
+
+def sha256_tree(path: Path) -> tuple[str, int]:
+    """Hash a directory as sorted relative paths plus per-file SHA-256."""
+    digest = hashlib.sha256()
+    count = 0
+    candidates = (
+        p for p in path.rglob("*")
+        if p.is_file() and "__pycache__" not in p.parts and p.suffix.lower() not in {".pyc", ".pyo"}
+    )
+    for item in sorted(candidates, key=lambda p: p.relative_to(path).as_posix().lower()):
+        relative = item.relative_to(path).as_posix()
+        digest.update(relative.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(sha256_file(item).encode("ascii"))
+        digest.update(b"\n")
+        count += 1
+    return digest.hexdigest().upper(), count
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -92,8 +112,8 @@ def validate_configuration(config: dict[str, Any], agents_cfg: dict[str, Any]) -
     if not isinstance(port, int) or not (1 <= port <= 65535):
         raise DeployError("fastclaw.port must be a valid integer port")
     agents = agents_cfg.get("agents")
-    if agents_cfg.get("schemaVersion") != 1 or not isinstance(agents, list) or len(agents) != 4:
-        raise DeployError("config/agents.json must contain exactly four schemaVersion 1 agents")
+    if agents_cfg.get("schemaVersion") != 1 or not isinstance(agents, list) or not agents:
+        raise DeployError("config/agents.json must contain a non-empty schemaVersion 1 agents list")
     keys = [a.get("key") for a in agents]
     names = [a.get("name") for a in agents]
     if len(set(keys)) != len(keys) or len(set(names)) != len(names):
@@ -107,10 +127,36 @@ def validate_configuration(config: dict[str, Any], agents_cfg: dict[str, Any]) -
 
 
 def validate_manifest(root: Path) -> None:
-    try:
-        validate_package_manifest(root)
-    except ManifestError as exc:
-        raise DeployError(str(exc)) from exc
+    manifest_path = root / "manifest.json"
+    manifest = load_json(manifest_path)
+    if manifest.get("schemaVersion") != 1:
+        raise DeployError("manifest schemaVersion must be 1")
+    failures: list[str] = []
+    for entry in manifest.get("files", []):
+        rel = entry.get("path", "")
+        expected = str(entry.get("sha256", "")).upper()
+        path = root / Path(rel)
+        if not path.is_file():
+            failures.append(f"missing: {rel}")
+            continue
+        actual = sha256_file(path)
+        if actual != expected:
+            failures.append(f"hash mismatch: {rel} (expected {expected}, got {actual})")
+    for entry in manifest.get("trees", []):
+        rel = entry.get("path", "")
+        expected = str(entry.get("sha256", "")).upper()
+        expected_count = int(entry.get("fileCount", -1))
+        path = root / Path(rel)
+        if not path.is_dir():
+            failures.append(f"missing directory: {rel}")
+            continue
+        actual, count = sha256_tree(path)
+        if actual != expected or count != expected_count:
+            failures.append(
+                f"tree mismatch: {rel} (expected {expected}/{expected_count} files, got {actual}/{count} files)"
+            )
+    if failures:
+        raise DeployError("manifest validation failed:\n  " + "\n  ".join(failures))
 
 
 def validate_package(root: Path, config_path: Path, agents_path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -481,7 +527,7 @@ def verify(root: Path, config_path: Path, agents_path: Path, state_path: Path, r
             )
         log(f"verified agent, prompt, and skills: {desired['name']}")
     if not validate_client_key(config, expected_ids):
-        raise DeployError("middleware API key is missing, invalid, or not scoped to exactly four agents")
+        raise DeployError("middleware API key is missing, invalid, or not scoped to the managed agents")
     log("verified middleware API key scope")
 
     if run_smoke and config.get("verification", {}).get("modelSmoke", True):
