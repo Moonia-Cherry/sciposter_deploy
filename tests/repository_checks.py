@@ -25,8 +25,8 @@ def main() -> None:
             raise AssertionError(f"Release payload path does not exist: {declared}")
 
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
-    if manifest.get("packageVersion") != "1.1.0":
-        raise AssertionError("manifest.json packageVersion must be 1.1.0")
+    if manifest.get("packageVersion") != "1.1.1":
+        raise AssertionError("manifest.json packageVersion must be 1.1.1")
     manifest_paths = {entry["path"] for entry in manifest.get("files", [])}
     if "docs/deployment.md" not in manifest_paths:
         raise AssertionError("Manifest must cover docs/deployment.md")
