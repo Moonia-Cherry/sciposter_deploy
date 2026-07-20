@@ -12,6 +12,8 @@ permissions:
 jobs:
   skills:
     runs-on: windows-latest
+    env:
+      PYTHONUTF8: "1"
     steps:
       - name: Check out source
         uses: actions/checkout@v6
@@ -34,15 +36,21 @@ jobs:
         shell: pwsh
         run: |
           python -m pip install --disable-pip-version-check -r release/deps/python-requirements.lock.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           npm ci --prefix release/deps/node
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Compile Python and build deterministic skill archives
         shell: pwsh
         run: |
           python -m compileall -q bootstrap scripts tests skill-src
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python scripts/build_skills.py --check-reproducible
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python tests/runtime_error_checks.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python tests/repository_checks.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Run TXT skill smoke tests and missing-upload diagnostics
         shell: pwsh
@@ -50,7 +58,9 @@ jobs:
           NODE_PATH: ${{ github.workspace }}\release\deps\node\node_modules
         run: |
           python tests/skill_smoke.py --input-format txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python tests/skill_smoke.py --missing-only
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Run PDF and DOCX input smoke tests
         shell: pwsh
@@ -58,7 +68,9 @@ jobs:
           NODE_PATH: ${{ github.workspace }}\release\deps\node\node_modules
         run: |
           python tests/skill_smoke.py --input-format pdf
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python tests/skill_smoke.py --input-format docx
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
   portable-e2e:
     runs-on: windows-latest
