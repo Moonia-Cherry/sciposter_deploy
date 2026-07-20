@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "packageVersion": "1.1.1",
+  "packageVersion": "1.1.3",
   "platform": "windows-amd64",
   "versions": {
     "fastclaw": "0.35.1-sciposter.2",
@@ -43,7 +43,7 @@
     },
     {
       "path": "bootstrap/bootstrap.py",
-      "sha256": "76E13C18C7865D3AEBCD11804F872D3D9D14359591813C0B93189F276B3FCE97",
+      "sha256": "0FD5A1CE2D8027881B0A1F6A7B3EDE54A2A9D97C6B8FE7D380F13AB467D6DF8D",
       "size": 24677
     },
     {
@@ -73,7 +73,7 @@
     },
     {
       "path": "docs/deployment.md",
-      "sha256": "205B50EDB377FA187831247038EF1E3F3491FFB184E4502CCB50FF355BF50487",
+      "sha256": "5AAC7CF089DCFB16DB18A33E429E959DD1BF9B38A8614040DEC28D876C39F3EA",
       "size": 5901
     },
     {
@@ -158,7 +158,7 @@
     },
     {
       "path": "tests/repository_checks.py",
-      "sha256": "26E86B025EEFB69C8F3A81F38CD9B0B37BEB7B9B383C519104145C32FA56C1C8",
+      "sha256": "F9D39C66E71F025ED7E0F26E2DB3813009AE9CB3C60F8560A0B7BEA76B1AC956",
       "size": 2650
     },
     {

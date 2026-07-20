@@ -84,12 +84,12 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
-        run: ./scripts/Build-Release.ps1 -Version 1.1.1
+        run: ./scripts/Build-Release.ps1 -Version 1.1.3
 
       - name: Validate payload, manifest, and local FastClaw E2E
         shell: pwsh
         run: |
-          $archive = Join-Path $PWD 'dist\sciposter-windows-amd64-1.1.1.zip'
+          $archive = Join-Path $PWD 'dist\sciposter-windows-amd64-1.1.3.zip'
           $testRoot = Join-Path $env:RUNNER_TEMP 'sciposter-pr-e2e'
           New-Item -ItemType Directory -Path $testRoot -Force | Out-Null
           tar.exe -x -f $archive -C $testRoot

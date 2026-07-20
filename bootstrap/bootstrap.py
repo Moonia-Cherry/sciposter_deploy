@@ -22,7 +22,7 @@ from typing import Any
 from package_manifest import ManifestError, validate_manifest as validate_package_manifest
 
 
-DEPLOY_VERSION = "1.1.1"
+DEPLOY_VERSION = "1.1.3"
 
 
 class DeployError(RuntimeError):
