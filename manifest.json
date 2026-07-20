@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "packageVersion": "1.1.0",
+  "packageVersion": "1.1.3",
   "platform": "windows-amd64",
   "versions": {
     "fastclaw": "0.35.1-sciposter.2",
@@ -43,8 +43,8 @@
     },
     {
       "path": "bootstrap/bootstrap.py",
-      "sha256": "E9BF05B2143BA6D3FD6C1BBE8F9BA3532C29B2C79FF1369DF2BB6280EC2EA8F6",
-      "size": 24276
+      "sha256": "0FD5A1CE2D8027881B0A1F6A7B3EDE54A2A9D97C6B8FE7D380F13AB467D6DF8D",
+      "size": 24677
     },
     {
       "path": "bootstrap/common.ps1",
@@ -73,7 +73,7 @@
     },
     {
       "path": "docs/deployment.md",
-      "sha256": "4918D39922D80B16CCAC88209E3FF92B3A56A2C5F260A6262DA7EBAC64E1C0FF",
+      "sha256": "5AAC7CF089DCFB16DB18A33E429E959DD1BF9B38A8614040DEC28D876C39F3EA",
       "size": 5901
     },
     {
@@ -148,8 +148,8 @@
     },
     {
       "path": "tests/e2e-local.ps1",
-      "sha256": "581D78D6F9ED0623355771578AA8278C3E2606CEFBD3D16FA78B5ED3F3274F9D",
-      "size": 4357
+      "sha256": "6CD95E1C3CCE034F3465F0FF96EF80BE85E487D51CDE6119952E4CD0204CD2CB",
+      "size": 4365
     },
     {
       "path": "tests/mock_provider.py",
@@ -158,7 +158,7 @@
     },
     {
       "path": "tests/repository_checks.py",
-      "sha256": "8B13AE8C622FACAA08E26F8131977F2C733226ACF2886FA25D16A551EF9A6824",
+      "sha256": "F9D39C66E71F025ED7E0F26E2DB3813009AE9CB3C60F8560A0B7BEA76B1AC956",
       "size": 2650
     },
     {

@@ -22,7 +22,7 @@ from typing import Any
 from package_manifest import ManifestError, validate_manifest as validate_package_manifest
 
 
-DEPLOY_VERSION = "1.1.0"
+DEPLOY_VERSION = "1.1.3"
 
 
 class DeployError(RuntimeError):
@@ -508,6 +508,12 @@ def verify(root: Path, config_path: Path, agents_path: Path, state_path: Path, r
     if run_smoke and config.get("verification", {}).get("modelSmoke", True):
         state_agents = state.get("agents", {})
         for desired in agents_cfg["agents"]:
+            # The client API key is intentionally scoped only to agents that
+            # allow middleware access. FastClaw conceals excluded agents from
+            # that key, so probing one would correctly return 404.
+            if not desired.get("middlewareAccess", True):
+                log(f"text smoke skipped for middleware-inaccessible agent: {desired['name']}")
+                continue
             agent_id = state_agents[desired["key"]]["id"]
             if desired["key"] == "poster-agent":
                 continue
