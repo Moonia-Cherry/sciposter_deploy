@@ -14,7 +14,8 @@
       "key": "poster-fastclaw-upload-agent",
       "name": "poster-fastclaw-upload-agent",
       "description": "Standalone academic poster demo agent that runs only the upload-oriented poster pipeline.",
-      "experimental": false,
+      "experimental": true,
+      "middlewareAccess": false,
       "model": "provider/model",
       "skills": ["academic-poster-fastclaw-upload"],
       "prompt": "agents/prompts/poster-fastclaw-upload-agent.md"

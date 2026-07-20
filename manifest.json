@@ -1,20 +1,16 @@
 {
   "schemaVersion": 1,
-  "packageVersion": "1.0.0",
+  "packageVersion": "1.1.0",
   "platform": "windows-amd64",
   "versions": {
-    "fastclaw": "0.35.1",
+    "fastclaw": "0.35.1-sciposter.2",
+    "fastclawBuild": "c6f93858-workspacefix2",
     "python": "3.12.9",
     "node": "22.13.0",
     "pptxgenjs": "3.12.0",
     "sharp": "0.33.5"
   },
   "files": [
-    {
-      "path": ".gitignore",
-      "sha256": "C5555C11DB7165E4ECA0AB11DB7D5AB0257FD04D17B3868923E0D35805138D89",
-      "size": 156
-    },
     {
       "path": "agents/prompts/popular-article-agent.md",
       "sha256": "ED81ED6684DC107550CB4389B8E2F52A3513DA7157423510687702536C8B1B3C",
@@ -41,14 +37,14 @@
       "size": 463
     },
     {
-      "path": "agent-skill.md",
-      "sha256": "0FE2A7F3677582990014113FB01EDD5C1694E785A7531E1332380458FF0DA60D",
-      "size": 279
+      "path": "bin/fastclaw/fastclaw.exe",
+      "sha256": "14FD535C42B7613A1C0E348578641F4D61349120621F5BF4083A138957E49565",
+      "size": 45203968
     },
     {
       "path": "bootstrap/bootstrap.py",
-      "sha256": "955DB3049A9B7B00AEAC8590BE88685003E4E1AF8C0A12D26642FC3B14B402FC",
-      "size": 25217
+      "sha256": "E9BF05B2143BA6D3FD6C1BBE8F9BA3532C29B2C79FF1369DF2BB6280EC2EA8F6",
+      "size": 24276
     },
     {
       "path": "bootstrap/common.ps1",
@@ -56,14 +52,19 @@
       "size": 10266
     },
     {
+      "path": "bootstrap/package_manifest.py",
+      "sha256": "9D3FE66B8058B55EE4E9223930DB3966B040262B208252DAB8572FDEBFD668A0",
+      "size": 9711
+    },
+    {
       "path": "config/agents.json",
-      "sha256": "EF1AD31AE78BFB552E9A80F0466C9F3A97F70ACB31C55009753D1C30657BF361",
-      "size": 1836
+      "sha256": "F83D439CD7CE78608E7CFB4B1F52910DFAAB81657D67B9C9034B0BF9EB4ADCC0",
+      "size": 1868
     },
     {
       "path": "config/deploy.example.json",
-      "sha256": "A7C89458FE4BED18908248DF663DBE7B3ED7AB8EDC33153D5CFDB63A408410BE",
-      "size": 1316
+      "sha256": "0E31A8F89C38C1CA85319088762CF9C23BE1E44453FDB556AFDAC57833F8B6C2",
+      "size": 944
     },
     {
       "path": "deploy.ps1",
@@ -71,49 +72,24 @@
       "size": 3303
     },
     {
-      "path": "docs/backend-deploy.md",
-      "sha256": "9DEA97FC3341D464200F81247790537BD9AE197B88AC3690EC2F941F41D27CF3",
-      "size": 1004
-    },
-    {
-      "path": "docs/deploy-checklist.md",
-      "sha256": "D1767957991835F084A7EDD20BD60DC2EB6787F817F12EF033ACEFE182001AC0",
-      "size": 1495
-    },
-    {
-      "path": "docs/fastclaw-agent-skill-mapping.md",
-      "sha256": "824DCD24C682F1F100AAC3302B79BEF413E24CAF5C9323F1BAE51A5B9613C633",
-      "size": 848
-    },
-    {
-      "path": "docs/frontend-deploy.md",
-      "sha256": "579A4F9A464789581D4A5AB7C167EB35B7C004F89E98FAD26A4400620F67490A",
-      "size": 675
-    },
-    {
-      "path": "docs/pr-handoff.md",
-      "sha256": "BA1BD02FF4A1E8E9C077216F69714EFFE335759EDE01561FCCC2290B90D194B0",
-      "size": 990
+      "path": "docs/deployment.md",
+      "sha256": "4918D39922D80B16CCAC88209E3FF92B3A56A2C5F260A6262DA7EBAC64E1C0FF",
+      "size": 5901
     },
     {
       "path": "README.md",
-      "sha256": "E273D79FE77C55873368470C8D9EE413078F75CB1D4653A1C62A4B91467B5AD7",
-      "size": 7359
+      "sha256": "F1E1493BB20069BCEF8C7E235DDA3D0577EE1EF21CA24E304BB74D1ED46155D0",
+      "size": 1564
     },
     {
-      "path": "SciPoster分层架构图.svg",
-      "sha256": "D6E0A21CC127410E21D89AA89D101CAAC4079F8538F7BEEEDF572D0BE69FE531",
-      "size": 10526
+      "path": "skills/academic-poster-fastclaw-upload.zip",
+      "sha256": "7E170ABEB89AEEA13E2782E7DCBD03CA9D10718CEF5ACF633A69179F8B1893B2",
+      "size": 30818
     },
     {
       "path": "skills/academic-poster.zip",
       "sha256": "1A6C9D833CEAC539918545C205C5C80BDDEF8C6262FBB46ACE823FE82F2AB2DA",
       "size": 22367
-    },
-    {
-      "path": "skills/academic-poster-fastclaw-upload.zip",
-      "sha256": "ABB671D41459D02F7D8613B84AC95153A08705E31C14537DCF50D9A8B8A96D7F",
-      "size": 32102
     },
     {
       "path": "skills/code-runner.zip",
@@ -132,13 +108,13 @@
     },
     {
       "path": "skills/popular-article-fastclaw-upload.zip",
-      "sha256": "CC034EF6FF1110C99D1DDD174D142012497D4C84418039F62D4E53F5DEDF4CB3",
-      "size": 47064
+      "sha256": "D4508D1207DB96C35ED8A97289242FCF87D0B8088E5387F2A161E8E34EC2572F",
+      "size": 28499
     },
     {
       "path": "skills/slides-fastclaw-upload.zip",
-      "sha256": "A22EBDC92C19B288D1015C64F840071A3B5F374ABB342FF35EA97ACA8BC94A2C",
-      "size": 32190384
+      "sha256": "DEA1BE4B8DFA9F2026E7AE92A4EDA3861C87E31D36EA07C8C97329A79F41FDC2",
+      "size": 29016
     },
     {
       "path": "skills/translation.zip",
@@ -152,8 +128,8 @@
     },
     {
       "path": "skills/xhs-fastclaw-upload.zip",
-      "sha256": "4641188050F4BCEF29993F6D9C4EC5B59EDA1D29FBA69C27636ED2C8A6EB8703",
-      "size": 30061005
+      "sha256": "1F47184CA1BB8194972EADB96D20431B31D366D512872E089A5DAA02C8B9EA0A",
+      "size": 25813
     },
     {
       "path": "start.ps1",
@@ -172,8 +148,8 @@
     },
     {
       "path": "tests/e2e-local.ps1",
-      "sha256": "DE7FC2496588EA365D2352070EF992D318B31CA5C2409BAD85C2CA5CE90DD178",
-      "size": 3890
+      "sha256": "581D78D6F9ED0623355771578AA8278C3E2606CEFBD3D16FA78B5ED3F3274F9D",
+      "size": 4357
     },
     {
       "path": "tests/mock_provider.py",
@@ -181,10 +157,36 @@
       "size": 1665
     },
     {
+      "path": "tests/repository_checks.py",
+      "sha256": "8B13AE8C622FACAA08E26F8131977F2C733226ACF2886FA25D16A551EF9A6824",
+      "size": 2650
+    },
+    {
+      "path": "tests/runtime_error_checks.py",
+      "sha256": "435196E3A82D8ADBFA807235CC9FE6C540D52446C81362A55BB2FE3793C92181",
+      "size": 2086
+    },
+    {
+      "path": "tests/skill_smoke.py",
+      "sha256": "B2028ACA8A0BC72A40A0452CE8A2C5386273D545CA7645CBFF31CC07ABA449BB",
+      "size": 7560
+    },
+    {
       "path": "verify.ps1",
       "sha256": "FFBF76D58D5558AB25DE626864FF65FE455867B71BBF6B5457C410E412119E01",
       "size": 720
     }
   ],
-  "trees": []
+  "trees": [
+    {
+      "path": "runtime/python",
+      "sha256": "783FFDE817C939244C9392690153B7F2998E363B2B28A614560E783556BDF453",
+      "fileCount": 9863
+    },
+    {
+      "path": "runtime/node",
+      "sha256": "ABCC1AF69DBD104911A449E846FCE204442C046808DE7E9F63ADA1A41549E21E",
+      "fileCount": 474
+    }
+  ]
 }

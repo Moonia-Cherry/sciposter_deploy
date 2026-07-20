@@ -1,0 +1,7 @@
+interface:
+  display_name: "Academic Poster"
+  short_description: "Generate one-click academic poster drafts."
+  default_prompt: "Use $academic-poster-fastclaw-upload to generate an academic poster directly from my uploaded paper and export editable PPTX, PNG, SVG, and preview HTML."
+
+policy:
+  allow_implicit_invocation: true

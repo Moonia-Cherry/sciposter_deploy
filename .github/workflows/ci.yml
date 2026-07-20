@@ -1,0 +1,92 @@
+name: Pull request checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  skills:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22.13.0"
+          cache: npm
+          cache-dependency-path: release/deps/node/npm-shrinkwrap.json
+
+      - name: Install locked dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --disable-pip-version-check -r release/deps/python-requirements.lock.txt
+          npm ci --prefix release/deps/node
+
+      - name: Compile Python and build deterministic skill archives
+        shell: pwsh
+        run: |
+          python -m compileall -q bootstrap scripts tests skill-src
+          python scripts/build_skills.py --check-reproducible
+          python tests/runtime_error_checks.py
+          python tests/repository_checks.py
+
+      - name: Run TXT skill smoke tests and missing-upload diagnostics
+        shell: pwsh
+        env:
+          NODE_PATH: ${{ github.workspace }}\release\deps\node\node_modules
+        run: |
+          python tests/skill_smoke.py --input-format txt
+          python tests/skill_smoke.py --missing-only
+
+      - name: Run PDF and DOCX input smoke tests
+        shell: pwsh
+        env:
+          NODE_PATH: ${{ github.workspace }}\release\deps\node\node_modules
+        run: |
+          python tests/skill_smoke.py --input-format pdf
+          python tests/skill_smoke.py --input-format docx
+
+  portable-e2e:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Assemble release from locked portable base
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/Build-Release.ps1 -Version 1.1.0
+
+      - name: Validate payload, manifest, and local FastClaw E2E
+        shell: pwsh
+        run: |
+          $archive = Join-Path $PWD 'dist\sciposter-windows-amd64-1.1.0.zip'
+          $testRoot = Join-Path $env:RUNNER_TEMP 'sciposter-pr-e2e'
+          New-Item -ItemType Directory -Path $testRoot -Force | Out-Null
+          tar.exe -x -f $archive -C $testRoot
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to extract release package.' }
+          & "$testRoot\runtime\python\python.exe" "$testRoot\bootstrap\package_manifest.py" validate --root $testRoot
+          if ($LASTEXITCODE -ne 0) { throw 'Manifest validation failed.' }
+          foreach ($required in @('docs\deployment.md', 'skills', 'runtime\python', 'runtime\node')) {
+            if (-not (Test-Path -LiteralPath (Join-Path $testRoot $required))) { throw "Missing release payload: $required" }
+          }
+          foreach ($forbidden in @('skill-src', 'dist', 'vendor', 'node_modules')) {
+            if (Test-Path -LiteralPath (Join-Path $testRoot $forbidden)) { throw "Forbidden release payload: $forbidden" }
+          }
+          & "$testRoot\tests\e2e-local.ps1"
